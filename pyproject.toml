@@ -1,0 +1,18 @@
+[project]
+name = "converter-hub"
+version = "0.1.0"
+description = "Multi-tool Streamlit app: ZIP -> Markdown, Excel -> Markdown, CSV -> Excel"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.40",
+    "pandas>=2.2",
+    "openpyxl>=3.1.5",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
