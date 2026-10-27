@@ -7,7 +7,9 @@ import streamlit as st
 from converter_hub.core.registry import discover_tools
 from converter_hub.core.ui import make_tool_page
 
-st.set_page_config(page_title="Converter Hub", page_icon="🧰", layout="wide")
+DEFAULT_TOOL_SLUG = "zip-to-markdown"  # this page opens first
+
+st.set_page_config(page_title="Community Tools", page_icon="🧰", layout="wide")
 
 
 def build_navigation() -> st.navigation:
@@ -19,20 +21,12 @@ def build_navigation() -> st.navigation:
             title=tool.title,
             icon=tool.icon,
             url_path=tool.slug,
+            default=(tool.slug == DEFAULT_TOOL_SLUG),
         )
         for tool in tools
     ]
 
-    def home() -> None:
-        st.title("🧰 Converter Hub")
-        st.write("Pick a tool from the sidebar or below.")
-        for tool, page in zip(tools, tool_pages):
-            with st.container(border=True):
-                st.page_link(page, label=f"**{tool.title}**", icon=tool.icon)
-                st.caption(tool.description)
-
-    home_page = st.Page(home, title="Home", icon="🏠", url_path="home", default=True)
-    return st.navigation([home_page, *tool_pages])
+    return st.navigation(tool_pages)
 
 
 build_navigation().run()
